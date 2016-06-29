@@ -273,7 +273,7 @@ class Vivus
 
 
 	//## User public API ##
-	function Play(speed = 1.0)
+	function play(speed = 1.0)
 	{
 		assert typeof speed == #float;
 		this.speed = speed;
@@ -286,13 +286,13 @@ class Vivus
 		return this;
 	}
 
-	function Stop()
+	function stop()
 	{
 		this.el.timer(0, onStep);
 		return this;
 	}
 
-	function Destroy()
+	function destroy()
 	{
 		this.Stop();
 		for(var (i,obj_path) in this.arr_map) {
@@ -301,17 +301,17 @@ class Vivus
 		}
 	}
 
-	function Reset()
+	function reset()
 	{
 		return this.SetFrameProgress(0);
 	}
 
-	function Finish()
+	function finish()
 	{
 		return this.SetFrameProgress(1);
 	}
 
-	function SetFrameProgress(progress)
+	function setFrameProgress(progress)
 	{
 		progress = Float.min(1, Float.max(0, progress));
 		this.currentFrameFloat = Math.round(this.frameLength * progress);
@@ -319,7 +319,7 @@ class Vivus
 		return this;
 	}
 
-	function GetStatus()
+	function getStatus()
 	{
 		return this.currentFrameFloat === 0 ? #start : (this.currentFrameFloat === this.frameLength ? #end : #progress);
 	}
