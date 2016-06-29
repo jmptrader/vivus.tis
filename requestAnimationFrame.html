@@ -1,0 +1,37 @@
+﻿<!-- OmniView:off -->
+<html>
+<head>
+	<script type="text/tiscript">
+		/*var animators = [];
+
+		self.timer(View.ANIMATION_TIMER_SPAN, function() {
+			if(view.state == View.WINDOW_HIDDEN) {
+
+			}
+		});
+
+		function requestAnimationFrame(cbk) {
+			animators.push(cbk);
+		}*/
+
+		/*var i = 0;
+		self.animate(function() {
+			log("anim", i++);
+			return 100;
+		}, function() {
+			log("end");
+		});*/
+
+		self.onSize = function() {
+			stdout.println("S1");
+		};
+		
+		self.subscribe(function() {
+			stdout.println("S2");
+		}, Event.SIZE);
+	</script>
+</head>
+
+<body>
+</body>
+</html>
