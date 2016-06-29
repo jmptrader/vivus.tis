@@ -3,9 +3,9 @@
 <!--Demo available on -->
 
 
-Vivus.tis is a port of JavaScript [Vivus.js](https://github.com/maxwellito/vivus) library for **[Sciter/TIScript](http://sciter.com/)**. See the orignal library to know about what it does.
+Vivus.tis is a port of JavaScript **[Vivus.js](https://github.com/maxwellito/vivus)** library for **[Sciter/TIScript](http://sciter.com/)**. See the original library to know about what it does.
 
-Goal is to have this API the same in from vivus.js, so you can grab any existent JS/SVG sample and have it working in Sciter just by copy/pasting. However there is still some adaptations that needs to be done, mainly adding the lengths of every SVG `<path>`.
+Goal is to have this API the same as in vivus.js, so you can grab any existent JS/SVG sample and have it working in Sciter just by copy/pasting. However there is still some adaptations that needs to be done, mainly adding the lengths of every SVG `<path>`.
 
 This way, just search for any Vivus.js sample and you will be amazed with what you can achieve with SVG stroke animations: [Codepen](http://codepen.io/search/pens?q=vivus&limit=all&type=type-pens)
 
@@ -23,6 +23,12 @@ This way, just search for any Vivus.js sample and you will be amazed with what y
   <path length="180" ...>
 </svg>
 ```
+
+Sciter currently doesn't supports calculating path's length, so you need to tell in your markup the length of each path in pixels by adding a `length="123"` attribute.
+
+The good news is that you can view any Vivus.js example in any browser, open the developer tools (F12), right-click the SVG node, and 'Copy Outer HTML' to get the necessary SVG markup.
+
+Notice that vivus.js adds to every `<path>` something like `style="stroke-dasharray: 566, 568; stroke-dashoffset: 0;"` where 566 is the length of the path. I manually added a procedure to extract the length from this attribute as seen [here](https://github.com/MISoftware/vivus.tis/blob/master/vivus.tis#L95), so if your SVG markup has it, you are not required need to add `length="123"` attributes.
 
 ### Constructor
 
