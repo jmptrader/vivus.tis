@@ -1,5 +1,4 @@
 ﻿// Based on https://github.com/maxwellito/vivus
-
 class Vivus
 {
 	const LINEAR          = function (x) {return x;};
@@ -185,32 +184,31 @@ class Vivus
 	function starter()
 	{
 		var vivus = this;
-		switch(this.start)
+		switch(vivus.start)
 		{
 			case "manual":
 				return;
 
 			case "autostart":
-				self.post(::vivus.Play());
+				self.post(::vivus.play());
 				return;
 
 			case "inViewport":
 				{
 					var listener = function() {
+						//console.trace(vivus.el);
+
 						if(vivus.el.seenIn(vivus.el_scrollable))
 						{
-							log("inViewport Play()", vivus.el);
-
-							view.off("size", listener);
-							vivus.el_scrollable.unsubscribe(listener);
-							vivus.Play();
-							return true;
+							view.off(listener);
+							vivus.el_scrollable.off("scroll." + vivus.el.tagname());
+							vivus.play();
 						}
 					};
 
 					view.on("size", listener);// handler must have no parameters
-					this.el_scrollable.on("scroll", listener);
-
+					vivus.el_scrollable.on("scroll." + vivus.el.tagname(), listener);
+					
 					self.post(listener);
 				}
 				return;
@@ -223,6 +221,9 @@ class Vivus
 	{
 		var vivus = this.vivus;
 		assert vivus;
+
+		if(!vivus.isPlaying)
+			return false;
 		return vivus.drawer();
 	}
 
@@ -233,7 +234,9 @@ class Vivus
 
 		vivus.isPlaying = false;
 		if(vivus.fn_callback)
-			vivus.fn_callback.call(vivus);
+		{
+			self.post(::vivus.fn_callback.call(vivus));
+		}
 	}
 
 	function drawer()
@@ -243,11 +246,11 @@ class Vivus
 		//console.trace("frameLength: " + this.frameLength + " " + (this.currentFrameFloat >= this.frameLength));
 
 		if(this.currentFrameFloat <= 0) {
-			this.Stop();
-			this.Reset();
+			this.stop();
+			this.reset();
 			return false;
 		} else if(this.currentFrameFloat >= this.frameLength) {
-			this.Stop();
+			this.stop();
 			this.currentFrameFloat = this.frameLength;
 			this.trace();
 			return false;
@@ -282,19 +285,22 @@ class Vivus
 		{
 			this.isPlaying = true;
 			this.el.animate(onStep, onEnd);
+			log("animate");
 		}
 		return this;
 	}
 
 	function stop()
 	{
-		this.el.timer(0, onStep);
+		this.isPlaying = false;
 		return this;
 	}
 
 	function destroy()
 	{
-		this.Stop();
+		this.stop();
+		this.fn_callback = undefined;
+
 		for(var (i,obj_path) in this.arr_map) {
 			obj_path.elp.@#stroke-dasharray = undefined;
 			obj_path.elp.@#stroke-dashoffset = undefined;
@@ -303,7 +309,8 @@ class Vivus
 
 	function reset()
 	{
-		return this.SetFrameProgress(0);
+		this.setFrameProgress(0.0);
+		return this.play();
 	}
 
 	function finish()
@@ -347,6 +354,21 @@ function Element.seenIn(el_scrollable)
 	if( cy1 >= py2 ) return false; // below viewport
 	if( cy2 <= py1 ) return false; // above viewport
 	return true; // seen inside
+}
+
+if(!Element.tagname)
+{
+	Element.tagname = function()
+	{
+		var name = this.tag;
+		var id = this.id;
+		var classes = this.@#class;
+		if(id)
+			name += "#" + id;
+		if(classes)
+			name += "." + classes.split(" ").join(".");
+		return "<" + name + ">";
+	}
 }
 
 /*const n_iter = opt.duration / ANIM_TICKSPAN;

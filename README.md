@@ -1,6 +1,7 @@
 # vivus.tis
 
-<!--Demo available on -->
+Demos:
+
 
 
 Vivus.tis is a port of JavaScript **[Vivus.js](https://github.com/maxwellito/vivus)** library for **[Sciter/TIScript](http://sciter.com/)**. See the original library to know about what it does.
@@ -26,9 +27,9 @@ This way, just search for any Vivus.js sample and you will be amazed with what y
 
 Sciter currently doesn't supports calculating path's length, so you need to tell in your markup the length of each path in pixels by adding a `length="123"` attribute.
 
-The good news is that you can view any Vivus.js example in any browser, open the developer tools (F12), right-click the SVG node, and 'Copy Outer HTML' to get the necessary SVG markup.
+The good news is that you can view any Vivus.js example in any browser, open its developer tools (F12), right-click the SVG node, and 'Copy Outer HTML' to get all the necessary SVG markup.
 
-Notice that vivus.js adds to every `<path>` something like `style="stroke-dasharray: 566, 568; stroke-dashoffset: 0;"` where 566 is the length of the path. I manually added a procedure to extract the length from this attribute as seen [here](https://github.com/MISoftware/vivus.tis/blob/master/vivus.tis#L95), so if your SVG markup has it, you are not required need to add `length="123"` attributes.
+Notice that vivus.js adds to every `<path>` something like `style="stroke-dasharray: 566, 568; stroke-dashoffset: 0;"` where 566 is the length of the path. I manually added a procedure to extract the length from this attribute as seen [here](https://github.com/MISoftware/vivus.tis/blob/master/vivus.tis#L95), so if your SVG markup has it, you are not required to add `length="123"` attributes.
 
 ### Constructor
 
@@ -41,7 +42,7 @@ The Vivus constructor asks for 3 parameters:
 
 ### Option list
 
-Options are the same from vivus.js, however some of are removed because they are not necessary in Sciter.
+Options are the same as in vivus.js, however I removed some of them because they are really not necessary in Sciter.
 
 | Name       | Type     | Description |
 |------------|----------|-------------|

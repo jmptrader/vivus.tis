@@ -1,4 +1,4 @@
-﻿<!-- OmniView:off -->
+﻿<!-- OmniView:on -->
 <html>
 <head>
 	<script type="text/tiscript">
@@ -14,21 +14,33 @@
 			animators.push(cbk);
 		}*/
 
-		/*var i = 0;
+		/*
+        https://github.com/c-smile/sciter-sdk/issues/39
+        var i = 0;
 		self.animate(function() {
 			log("anim", i++);
 			return 100;
 		}, function() {
 			log("end");
-		});*/
+		});
+        */
 
-		self.onSize = function() {
-			stdout.println("S1");
-		};
-		
-		self.subscribe(function() {
-			stdout.println("S2");
-		}, Event.SIZE);
+        /*
+        https://github.com/c-smile/sciter-sdk/issues/40
+        var i = 0;
+        self.animate(function() {
+            if(i++ == 10)
+                return 0;
+
+            return 100;
+        }, function() {
+            stdout.println("First animate() ended, starting another one");
+
+            self.animate(function(p) {
+                stdout.println("This is called only once", p);// BUG: should allow starting another animation
+            }, 10000);
+        });
+        */
 	</script>
 </head>
 

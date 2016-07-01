@@ -12,16 +12,17 @@
 
 		var tick = System.ticks;
 		function OnEnd() {
-			trace("Took " + (System.ticks - tick) + "ms");
+			//if(view.omni)
+			//    trace("Took " + (System.ticks - tick) + "ms");
 		}
 
 		if(true)
 		{
-			var obt = new Vivus(self#obt, {
+			var obtD = new Vivus(self#obt, {
 				type: "delayed",
 				duration: 150
 			}, OnEnd);
-			$(.obturator button).onClick = ::obt.Reset();
+			$(.obturator button).onClick = ::obtD.reset();
 		}
 
 		if(true)
@@ -29,7 +30,15 @@
 			var polaroidD = new Vivus(self#polaroid-dynamic, {
 				type: "scenario-sync",
 				duration: 20
+			}, function() {
+				//log("onEnd");
+				//polaroidD.play(-1.);
 			});
+
+			/*self.timer(1000, function() {
+				polaroidD.stop();
+				log("stttttoop");
+			});*/
 		}
 
 		if(true)
@@ -39,7 +48,7 @@
 				duration: 20,
 				start: "manual"
 			}, OnEnd);
-			$(.hithere button).onClick = ::hiD.Play();
+			$(.hithere button).onClick = ::hiD.play();
 		}
 		
 		if(true) 
@@ -50,7 +59,7 @@
 				start: "manual",
 				animTimingFunction: Vivus.EASE_IN
 			});
-			$(.synth button).onClick = ::synthD.Play();
+			$(.synth button).onClick = ::synthD.play();
 		}
 
 		function easeOutBounce(x) {
@@ -124,6 +133,7 @@
 		</div>
 	</section>
 
+
 	<section .polaroid>
 		<svg viewBox="0 0 200 160" #polaroid-dynamic style="height: 384px">
 			<g stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="3">
@@ -163,6 +173,7 @@
 
 		<p>
 			This should display the polaroid SVG like on the demo page. The strokes must have the same color as this text.
+			The animation repeats indefinitely.
 		</p>
 	</section>
 
