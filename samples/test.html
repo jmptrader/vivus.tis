@@ -1,14 +1,15 @@
-﻿<!-- OmniView:off -->
+﻿<!-- OmniView:on -->
 <html>
 <head>
 	<script type="text/tiscript">
-		include "vivus.tis";
+		include "../vivus.tis";
 
 		if(view.omni)
 		{
 			Omni.dom_tree_disable = true;
 			Omni.openConsole();
 		}
+		$(.intro).remove();
 
 		var tick = System.ticks;
 		function OnEnd() {
@@ -20,9 +21,16 @@
 		{
 			var obtD = new Vivus(self#obt, {
 				type: "delayed",
-				duration: 150
-			}, OnEnd);
+				duration: 50
+			}, function() {
+				log("onEnd");
+			});
 			$(.obturator button).onClick = ::obtD.reset();
+
+			self.timer(400, function() {
+				obtD.play(-1.0);
+				log("stttttoop");
+			});
 		}
 
 		if(true)
@@ -34,14 +42,9 @@
 				//log("onEnd");
 				//polaroidD.play(-1.);
 			});
-
-			/*self.timer(1000, function() {
-				polaroidD.stop();
-				log("stttttoop");
-			});*/
 		}
 
-		if(true)
+		if(false)
 		{
 			var hiD = new Vivus(self#hi-dynamic, {
 				type: "scenario-sync",
@@ -51,7 +54,7 @@
 			$(.hithere button).onClick = ::hiD.play();
 		}
 		
-		if(true) 
+		if(false) 
 		{
 			var synthD = new Vivus(self#synth-dynamic, {
 				type: "oneByOne",
@@ -100,7 +103,7 @@
 		svg
 		{
 			background: none;
-			fill:transparent;
+			fill: transparent;
 			//outline: solid 1px;
 		}
 	</style>
@@ -133,9 +136,34 @@
 		</div>
 	</section>
 
+	<section .obturator>
+		<div>
+			<p>
+				This should display the obturateur SVG like on the demo page. The strokes must be orange. The element must remain an <i>object</i> tag.
+			</p>
+			<button>Reset</button>
+		</div>
+
+		<svg viewBox="0 0 200 200" #obt.outline style="height: 250px">
+			<g stroke="#f60" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+				<path d="M10,100A90,90 0,1,1 190,100A90,90 0,1,1 10,100" length="566, 568;" />
+				<path d="M14.260000000000005,100A85.74,85.74 0,1,1 185.74,100A85.74,85.74 0,1,1 14.260000000000005,100" length="539, 541;" />
+				<path d="M27.052999999999997,100A72.947,72.947 0,1,1 172.947,100A72.947,72.947 0,1,1 27.052999999999997,100" length="459, 461;" />
+				<path d="M60.26,100A39.74,39.74 0,1,1 139.74,100A39.74,39.74 0,1,1 60.26,100" length="250, 252;" />
+				<path d="M34.042,131.189L67.047,77.781" length="63, 65;" />
+				<path d="M31.306,75.416L92.41,60.987" length="63, 65;" />
+				<path d="M68.81,34.042L122.219,67.046" length="63, 65;" />
+				<path d="M124.584,31.305L139.013,92.409" length="63, 65;" />
+				<path d="M165.957,68.809L132.953,122.219" length="63, 65;" />
+				<path d="M168.693,124.584L107.59,139.012" length="63, 65;" />
+				<path d="M131.19,165.957L77.781,132.953" length="63, 65;" />
+				<path d="M75.417,168.693L60.987,107.59" length="63, 65;" />
+			</g>
+		</svg>
+	</section>
 
 	<section .polaroid>
-		<svg viewBox="0 0 200 160" #polaroid-dynamic style="height: 384px">
+		<svg viewBox="0 0 200 160" #polaroid-dynamic.outline style="height: 384px">
 			<g stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="3">
 				<!-- Case -->
 				<!-- The case items will be drawn at the same time (attribute `data-async` on each tag) with a custom duration of 40 frames (attribute `data-duration`). WARNING: When you want to draw a block asynchronously (like here), the last item need to be `data-async` free. Otherwise the following tags will also start at the same time. I know it's a bit confusing, play a bit with it and you'll see. -->
@@ -177,32 +205,6 @@
 		</p>
 	</section>
 
-	<section .obturator>
-		<div>
-			<p>
-				This should display the obturateur SVG like on the demo page. The strokes must be orange. The element must remain an <i>object</i> tag.
-			</p>
-			<button>Reset</button>
-		</div>
-
-		<svg viewBox="0 0 200 200" #obt style="height: 250px">
-			<g stroke="#f60" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-				<path d="M10,100A90,90 0,1,1 190,100A90,90 0,1,1 10,100" length="566, 568;" />
-				<path d="M14.260000000000005,100A85.74,85.74 0,1,1 185.74,100A85.74,85.74 0,1,1 14.260000000000005,100" length="539, 541;" />
-				<path d="M27.052999999999997,100A72.947,72.947 0,1,1 172.947,100A72.947,72.947 0,1,1 27.052999999999997,100" length="459, 461;" />
-				<path d="M60.26,100A39.74,39.74 0,1,1 139.74,100A39.74,39.74 0,1,1 60.26,100" length="250, 252;" />
-				<path d="M34.042,131.189L67.047,77.781" length="63, 65;" />
-				<path d="M31.306,75.416L92.41,60.987" length="63, 65;" />
-				<path d="M68.81,34.042L122.219,67.046" length="63, 65;" />
-				<path d="M124.584,31.305L139.013,92.409" length="63, 65;" />
-				<path d="M165.957,68.809L132.953,122.219" length="63, 65;" />
-				<path d="M168.693,124.584L107.59,139.012" length="63, 65;" />
-				<path d="M131.19,165.957L77.781,132.953" length="63, 65;" />
-				<path d="M75.417,168.693L60.987,107.59" length="63, 65;" />
-			</g>
-		</svg>
-	</section>
-
 	<section .hithere>
 		<div>
 			<p>
@@ -211,7 +213,7 @@
 			<button>Start</button>
 		</div>
 
-		<svg viewBox="0 0 404.7 354" #hi-dynamic style="height: 280px">
+		<svg viewBox="0 0 404.7 354" #hi-dynamic.outline style="height: 280px">
 			<g stroke-miterlimit="10" stroke-linejoin="round" stroke-linecap="round" stroke-width="3">
 				<!-- HI -->
 				<path length="186" d="M324.6,61.2c16.6,0,29.5-12.9,29.5-29.5c0-16.6-12.9-29.5-29.5-29.5c-16.6,0-29.5,12.9-29.5,29.5C295.1,48.4,308,61.2,324.6,61.2z" data-duration="10"></path>
@@ -239,7 +241,7 @@
 	</section>
 
 	<section .synth>
-		<svg viewBox="0 0 378.995 259.5" version="1.1" #synth-dynamic style="height: 280px">
+		<svg viewBox="0 0 378.995 259.5" version="1.1" #synth-dynamic.outline style="height: 280px">
 			<g id="Synth">
 				<path length="920" d="M375.5,108.934c1.549,2.693,0.627,5.739-2.059,6.804L72.043,235.257c-2.685,1.064-6.116-0.254-7.665-2.946L5.362,129.69   c-1.548-2.692-0.625-5.737,2.059-6.802L308.818,3.369c2.686-1.065,6.117,0.254,7.666,2.946L375.5,108.934z"></path>
 				<path length="494" d="M376.246,111.47l-2.068,18.344c0,0-0.621,5.361-4.932,7.726L69.601,256.365c-2.685,1.064-6.116-0.254-7.665-2.946L3.693,152.145   c-1.548-2.692-0.878-9.891-0.878-9.891l0.82-7.014"></path>

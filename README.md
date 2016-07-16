@@ -4,14 +4,13 @@ Demos:
 
 
 
-Vivus.tis is a port of JavaScript **[Vivus.js](https://github.com/maxwellito/vivus)** library for **[Sciter/TIScript](http://sciter.com/)**. See the original library to know about what it does.
+Vivus.tis is a port of JavaScript **[Vivus.js](https://github.com/maxwellito/vivus)** library for **[Sciter/TIScript](http://sciter.com/)**. See the original library to know more about what it does.
 
-Goal is to have this API the same as in vivus.js, so you can grab any existent JS/SVG sample and have it working in Sciter just by copy/pasting. However there is still some adaptations that needs to be done, mainly adding the lengths of every SVG `<path>`.
+Goal is to have this API exactly the same as vivus.js, so you can grab any existent JS/SVG sample and have it working in Sciter just by copy/pasting. However there is still some adaptations that needs to be done, mainly adding the lengths of every SVG `<path>` (more details below).
 
 This way, just search for any Vivus.js sample and you will be amazed with what you can achieve with SVG stroke animations: [Codepen](http://codepen.io/search/pens?q=vivus&limit=all&type=type-pens)
 
 ## Usage
-
 
 ```html
 <script type="text/tiscript">
@@ -80,3 +79,8 @@ myVivus
   .reset()
   .play(2)
 ```
+
+## TODO
+
+http://surbhioberoi.com/a-complete-guide-to-svg/
+http://gionkunz.github.io/chartist-js/

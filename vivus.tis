@@ -30,6 +30,7 @@ class Vivus
 
 		this.setOptions(opt);
 		this.fn_callback = fn_callback;
+		this.isPlaying = false;
 		this.el = el_or_selector;
 		el_or_selector.vivus = this;
 
@@ -60,7 +61,7 @@ class Vivus
 		opt.el_scrollable = opt.scrollable || self;
 		assert typeof(opt.el_scrollable) == #Element : "Vivus [constructor]: " + opt.el_scrollable + " is not an Element";
 
-		opt.duration = (typeof opt.duration==#integer) ? opt.duration : 200;
+		opt.duration = (typeof opt.duration==#integer) ? opt.duration : 120;
 		opt.delay = (typeof opt.delay==#integer) ? opt.delay : opt.duration/3;
 		assert typeof(opt.delay) == #integer;
 		assert opt.delay >= 0;
@@ -87,8 +88,10 @@ class Vivus
 				continue;
 
 			// length check
-			assert elp.@.exists("length");
-			var length = elp.@#length.toInteger();
+			var length;
+			if(elp.@.exists("length"))
+				length = elp.@#length.toInteger();
+
 			if(!length)
 			{
 				// Hack, try get length from style="stroke-dasharray: 186, 226;" from Vivus SVG output
@@ -98,6 +101,12 @@ class Vivus
 					var res = regx.exec(elp.@#style);
 					if(res && res.length==2 && res[1])
 						length = res[1].toInteger();
+				}
+				// Hack: or from stroke-dasharray="63"
+				else
+				{
+					if(elp.@#stroke-dasharray)
+						length = elp.@#stroke-dasharray.toInteger();
 				}
 
 				if(!length)
@@ -233,16 +242,17 @@ class Vivus
 		assert vivus;
 
 		vivus.isPlaying = false;
-		if(vivus.fn_callback)
+		count();
+		if(vivus.fn_callback && (vivus.getStatus()==#start || vivus.getStatus()==#end))
 		{
-			self.post(::vivus.fn_callback.call(vivus));
+			vivus.fn_callback.call(vivus);// TODO: rmv post
 		}
 	}
 
 	function drawer()
 	{
 		this.currentFrameFloat += this.speed;
-		//console.trace("currentFrameFloat: " + this.currentFrameFloat);
+		//log("currentFrameFloat: " + this.currentFrameFloat, this.isPlaying);
 		//console.trace("frameLength: " + this.frameLength + " " + (this.currentFrameFloat >= this.frameLength));
 
 		if(this.currentFrameFloat <= 0) {
@@ -285,7 +295,6 @@ class Vivus
 		{
 			this.isPlaying = true;
 			this.el.animate(onStep, onEnd);
-			log("animate");
 		}
 		return this;
 	}
@@ -309,19 +318,23 @@ class Vivus
 
 	function reset()
 	{
-		this.setFrameProgress(0.0);
-		return this.play();
+		return this.setFrameProgress(0.0).play();
 	}
 
 	function finish()
 	{
-		return this.SetFrameProgress(1);
+		return this.setFrameProgress(1.0);
+	}
+
+	function getFrameProgress()
+	{
+		return this.currentFrameFloat / this.frameLength;
 	}
 
 	function setFrameProgress(progress)
 	{
 		progress = Float.min(1, Float.max(0, progress));
-		this.currentFrameFloat = Math.round(this.frameLength * progress);
+		this.currentFrameFloat = this.frameLength * progress;
 		this.trace();
 		return this;
 	}
