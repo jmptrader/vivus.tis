@@ -37,13 +37,13 @@
 			});
 
 			$(svgTag)
+				//.removeAttr("xmlns")
+				.removeAttr("xmlns:xlink")
 				.removeAttr("xml:space")
 				.removeAttr("enable-background")
 				.removeAttr("style")
 				.removeAttr("x")
 				.removeAttr("y")
-				.removeAttr("xmlns")
-				.removeAttr("xmlns:xlink")
 				.removeAttr("id")
 				.removeAttr("version");
 
@@ -62,7 +62,8 @@
 
 		$(function() {
 			$.get("input.svg", function(svgFileData) {
-				if(svgFileData.contentType != "text/xml")
+				console.log(svgFileData.contentType);
+				if(svgFileData.contentType != "text/xml" && svgFileData.contentType != "application/xml")
 				{
 					alert("'input.svg' seems to not be a valid SVG");
 					return;
@@ -70,7 +71,7 @@
 
 				var svgTag = svgFileData.documentElement;
 				SetSVGPathLengths(svgTag);
-			}).fail(function() {
+			}, "xml").fail(function() {
 				alert("AJAX failed to GET input.svg");
 			});
 		});

@@ -10,7 +10,9 @@ https://jsfiddle.net/41L4nej5/4/
 		if(View.omni)
 			Omni.dom_tree_disable = true;
 
-		var v = new Vivus("svg", { start: "manual" }, function() {
+		var v = new Vivus("svg", {
+			start: #manual
+		}, function() {
 			v.play(v.getStatus() == #end ? -1.0 : 1.0);
 		});
 

@@ -1,4 +1,4 @@
-﻿<!-- OmniView:on -->
+﻿<!-- OmniView:off, HtmlView:on -->
 <html>
 <head>
 	<style>
@@ -17,7 +17,6 @@
 			fill: none;
 			stroke: #FF495F;
 			stroke-width: 3px;
-			outline: solid 1px;
 		}
 	</style>
 </head>
@@ -38,16 +37,17 @@
 		<path stroke-dasharray="63" d="M75.417,168.693L60.987,107.59"></path>
 	</svg>
 	
-	<script src="vivus-master/dist/vivus.js"></script>
+	<script src="../vivus-master/dist/vivus.js"></script>
 
 	<script type="text/javascript">
 		var obt1 = new Vivus('theSVG', {
-			type: 'delayed'
+			type: 'delayed',
+			duration: 150
 		});
 	</script>
 
 	<script type="text/tiscript">
-		include "vivus.tis";
+		include "../vivus.tis";
 
 		function LogDimension(el) {
 			var (cx1,cy1,cx2,cy2) = el.box(#rect);

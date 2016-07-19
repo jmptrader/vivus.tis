@@ -29,8 +29,8 @@ class Vivus
 		assert el_or_selector && el_or_selector.tag=="svg": "No SVG element found";
 
 		this.setOptions(opt);
-		this.fn_callback = fn_callback;
 		this.isPlaying = false;
+		this.fn_callback = fn_callback;
 		this.el = el_or_selector;
 		el_or_selector.vivus = this;
 
@@ -131,7 +131,7 @@ class Vivus
 		}
 
 		assert totalLength > 0;
-		this.delayUnit = Math.round(this.delay / Integer.max(1, arr_path_elp.length-1));
+		this.delayUnit = Math.round(this.delay / Integer.max(1, arr_path_elp.length-1)).toInteger();
 
 		var lengthMeter = 0;
 		var timePoint = 0;
@@ -150,8 +150,11 @@ class Vivus
 					break;
 
 				case "oneByOne":
-					obj_path.startAt = lengthMeter / totalLength * this.duration;
+					obj_path.startAt = lengthMeter.toFloat() / totalLength * this.duration;
 					obj_path.duration = obj_path.length / totalLength * this.duration;
+					if(obj_path.startAt + obj_path.duration > this.duration) {
+						obj_path.duration = this.duration - obj_path.startAt;
+					}
 					break;
 
 				case "async":
@@ -160,8 +163,6 @@ class Vivus
 					break;
 
 				case "scenario-sync":
-					//log(timePoint, this.delayUnit);
-
 					obj_path.startAt = timePoint + parsePositiveInt(obj_path.elp.@#data-delay, this.delayUnit);
 					obj_path.duration = parsePositiveInt(obj_path.elp.@#data-duration, this.duration);
 					timePoint = obj_path.elp.@#data-async !== undefined ? obj_path.startAt : obj_path.startAt + obj_path.duration;
@@ -242,18 +243,15 @@ class Vivus
 		assert vivus;
 
 		vivus.isPlaying = false;
-		count();
 		if(vivus.fn_callback && (vivus.getStatus()==#start || vivus.getStatus()==#end))
 		{
-			vivus.fn_callback.call(vivus);// TODO: rmv post
+			vivus.fn_callback.call(vivus);
 		}
 	}
 
 	function drawer()
 	{
 		this.currentFrameFloat += this.speed;
-		//log("currentFrameFloat: " + this.currentFrameFloat, this.isPlaying);
-		//console.trace("frameLength: " + this.frameLength + " " + (this.currentFrameFloat >= this.frameLength));
 
 		if(this.currentFrameFloat <= 0) {
 			this.stop();
@@ -274,7 +272,8 @@ class Vivus
 	{
 		var currentFrameFloat = this.animTimingFunction(this.currentFrameFloat / this.frameLength) * this.frameLength;
 
-		for(var (i,obj_path) in this.arr_map) {
+		for(var (i,obj_path) in this.arr_map)
+		{
 			var progress = (currentFrameFloat - obj_path.startAt) / obj_path.duration;
 			progress = this.pathTimingFunction(Float.max(0, Float.min(1, progress)));
 			if(obj_path.progress !== progress) {
@@ -318,7 +317,7 @@ class Vivus
 
 	function reset()
 	{
-		return this.setFrameProgress(0.0).play();
+		return this.setFrameProgress(0.0);
 	}
 
 	function finish()
@@ -341,7 +340,7 @@ class Vivus
 
 	function getStatus()
 	{
-		return this.currentFrameFloat === 0 ? #start : (this.currentFrameFloat === this.frameLength ? #end : #progress);
+		return this.currentFrameFloat == 0 ? #start : (this.currentFrameFloat === this.frameLength ? #end : #progress);
 	}
 }
 
@@ -351,8 +350,11 @@ function parsePositiveInt(value, defaultValue) {
 	return (output >= 0) ? output : defaultValue;
 }
 
-function Math.round(v) {
-	return Math.floor( (v > 0.0) ? (v + 0.5) : (v - 0.5) ).toInteger();
+if(!Math.round)
+{
+	Math.round = function(v) {
+		return Math.floor( (v > 0.0) ? (v + 0.5) : (v - 0.5) ).toInteger();
+	}
 }
 
 function Element.seenIn(el_scrollable)

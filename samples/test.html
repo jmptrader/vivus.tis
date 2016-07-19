@@ -22,15 +22,8 @@
 			var obtD = new Vivus(self#obt, {
 				type: "delayed",
 				duration: 50
-			}, function() {
-				log("onEnd");
 			});
-			$(.obturator button).onClick = ::obtD.reset();
-
-			self.timer(400, function() {
-				obtD.play(-1.0);
-				log("stttttoop");
-			});
+			$(.obturator button).onClick = ::obtD.reset().play();
 		}
 
 		if(true)
@@ -39,22 +32,21 @@
 				type: "scenario-sync",
 				duration: 20
 			}, function() {
-				//log("onEnd");
-				//polaroidD.play(-1.);
+				polaroidD.play(polaroidD.getStatus() == #end ? -1.0 : 1.0);
 			});
 		}
 
-		if(false)
+		if(true)
 		{
 			var hiD = new Vivus(self#hi-dynamic, {
 				type: "scenario-sync",
 				duration: 20,
 				start: "manual"
 			}, OnEnd);
-			$(.hithere button).onClick = ::hiD.play();
+			$(.hithere button).onClick = ::hiD.reset().play();
 		}
 		
-		if(false) 
+		if(true) 
 		{
 			var synthD = new Vivus(self#synth-dynamic, {
 				type: "oneByOne",
@@ -62,7 +54,7 @@
 				start: "manual",
 				animTimingFunction: Vivus.EASE_IN
 			});
-			$(.synth button).onClick = ::synthD.play();
+			$(.synth button).onClick = ::synthD.reset().play();
 		}
 
 		function easeOutBounce(x) {
@@ -112,7 +104,7 @@
 		button
 		{
 			padding: 3px 6px;
-			//border-radius: 6px;// BUG
+			border-radius: 6px;
 			border: 1px solid;
 			color: inherit;
 			background: none;
@@ -139,7 +131,7 @@
 	<section .obturator>
 		<div>
 			<p>
-				This should display the obturateur SVG like on the demo page. The strokes must be orange. The element must remain an <i>object</i> tag.
+				This should display the obturateur SVG like on the demo page. The strokes must be orange.
 			</p>
 			<button>Reset</button>
 		</div>
@@ -210,7 +202,7 @@
 			<p>
 				This should display the 'Hi there' SVG like ready to start. Be sure no glitch appear (no small path or dots). Click on the following button to start.
 			</p>
-			<button>Start</button>
+			<button>Reset</button>
 		</div>
 
 		<svg viewBox="0 0 404.7 354" #hi-dynamic.outline style="height: 280px">
@@ -325,7 +317,7 @@
 			<p>
 				This should display a synth ready to start. Be sure no glitch appear (no small path or dots). The animation should use a custom path timing function (ease_in: slow at start then finish fast.). Click on the following button to start.
 			</p>
-			<button>Start</button>
+			<button>Reset</button>
 		</div>
 	</section>
 </body>

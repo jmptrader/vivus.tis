@@ -10,7 +10,7 @@ https://jsfiddle.net/qajtL81z/3/
 		if(View.omni)
 			Omni.dom_tree_disable = true;
 
-		var splash = new Vivus("svg", {
+		var v = new Vivus("svg", {
 			type: "scenario",
 			duration: 180
 		});
@@ -28,16 +28,15 @@ https://jsfiddle.net/qajtL81z/3/
 
 		svg
 		{
-			size: 400px;
+			size: 600px 300px;
 			background: none;
-			fill: transparent;
-			stroke: blanchedalmond;
 		}
 		svg path 
 		{
 			stroke-width: 6;
-			stroke-linecap: square;
-			stroke-miterlimit: 10;
+			/*stroke-linecap: square;
+			stroke-linejoin: bevel;
+			stroke-miterlimit: 10;*/
 		}
 	</style>
 </head>

@@ -1,14 +1,18 @@
 # vivus.tis
 
-Demos:
-
-
-
 Vivus.tis is a port of JavaScript **[Vivus.js](https://github.com/maxwellito/vivus)** library for **[Sciter/TIScript](http://sciter.com/)**. See the original library to know more about what it does.
 
-Goal is to have this API exactly the same as vivus.js, so you can grab any existent JS/SVG sample and have it working in Sciter just by copy/pasting. However there is still some adaptations that needs to be done, mainly adding the lengths of every SVG `<path>` (more details below).
+Goal is to have this API exactly the same as vivus.js, so you can grab any existent JS/SVG sample and have it working in Sciter just by copy/pasting. However, there are still some adaptations needed in such copied code, mainly adding the lengths of every SVG `<path>` (more details below).
 
 This way, just search for any Vivus.js sample and you will be amazed with what you can achieve with SVG stroke animations: [Codepen](http://codepen.io/search/pens?q=vivus&limit=all&type=type-pens)
+
+You can quickly see the live demos of the /samples from this repo by using [OmniFiddler](http://misoftware.rs/Home/Post/OmniFiddler):
+
+- [omnifiddler://r3NUZ](omnifiddler://r3NUZ)
+
+
+(inside OmniFiddler there is an option to register the _omnifiddler://_ protocol in your system so you can open such links, else you need to copy/paste the link into OmniFiddler)
+
 
 ## Usage
 
@@ -24,11 +28,13 @@ This way, just search for any Vivus.js sample and you will be amazed with what y
 </svg>
 ```
 
-Sciter currently doesn't supports calculating path's length, so you need to tell in your markup the length of each path in pixels by adding a `length="123"` attribute.
+## Adapting JS/SVG code from Vivus.js
 
-The good news is that you can view any Vivus.js example in any browser, open its developer tools (F12), right-click the SVG node, and 'Copy Outer HTML' to get all the necessary SVG markup.
+Sciter currently doesn't supports calculating `<path>`'s length, so you need to tell in your SVG markup the length of each `<path>` by adding a `length="123"` attribute.
 
-Notice that vivus.js adds to every `<path>` something like `style="stroke-dasharray: 566, 568; stroke-dashoffset: 0;"` where 566 is the length of the path. I manually added a procedure to extract the length from this attribute as seen [here](https://github.com/MISoftware/vivus.tis/blob/master/vivus.tis#L95), so if your SVG markup has it, you are not required to add `length="123"` attributes.
+The good news is that I've made a .html 'script' page to automate this process, which you will find in `calc-length-script/calc.html`. It uses your to browser (tested in Chrome and Firefox) to calculate that length and gives you the output SVG markup.
+
+Note that I found that sometimes the returned length is greater than the actual length. So the browser is returning the wrong measurement, or in Sciter, when you scale your SVG, the length gets incorrect. Anyway, you may have to manually tweak the value.
 
 ### Constructor
 
