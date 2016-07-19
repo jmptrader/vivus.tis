@@ -9,7 +9,6 @@
 			Omni.dom_tree_disable = true;
 			Omni.openConsole();
 		}
-		$(.intro).remove();
 
 		var tick = System.ticks;
 		function OnEnd() {
@@ -21,7 +20,7 @@
 		{
 			var obtD = new Vivus(self#obt, {
 				type: "delayed",
-				duration: 50
+				duration: 150
 			});
 			$(.obturator button).onClick = ::obtD.reset().play();
 		}

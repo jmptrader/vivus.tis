@@ -6,15 +6,24 @@ Goal is to have this API exactly the same as vivus.js, so you can grab any exist
 
 This way, just search for any Vivus.js sample and you will be amazed with what you can achieve with SVG stroke animations: [Codepen](http://codepen.io/search/pens?q=vivus&limit=all&type=type-pens)
 
-You can quickly see the live demos of the /samples from this repo by using [OmniFiddler](http://misoftware.rs/Home/Post/OmniFiddler):
+# Samples
+You can quickly see the live demos of the /samples folder by using [OmniFiddler](http://misoftware.rs/Home/Post/OmniFiddler):
 
-- [omnifiddler://r3NUZ](omnifiddler://r3NUZ)
+- <a href="omnifiddler://r3NUZ">omnifiddler://r3NUZ</a>
+- <a href="omnifiddler://Y1tvO">omnifiddler://Y1tvO</a>
+- <a href="omnifiddler://V1TPF">omnifiddler://V1TPF</a>
+- <a href="omnifiddler://mmT1Y">omnifiddler://mmT1Y</a>
+- <a href="omnifiddler://98H4v">omnifiddler://98H4v</a>
+
+_(inside OmniFiddler there is an option to register the omnifiddler:// protocol in your system so you can open such links, else you need to copy/paste the link into OmniFiddler)_
+
+![](https://github.com/MISoftware/vivus.tis/blob/master/samples/gifs/cheese.gif?raw=true)
+![](https://github.com/MISoftware/vivus.tis/blob/master/samples/gifs/lettering.gif?raw=true)
+![](https://github.com/MISoftware/vivus.tis/blob/master/samples/gifs/stamps.gif?raw=true)
+![](https://github.com/MISoftware/vivus.tis/blob/master/samples/gifs/index.gif?raw=true)
 
 
-(inside OmniFiddler there is an option to register the _omnifiddler://_ protocol in your system so you can open such links, else you need to copy/paste the link into OmniFiddler)
-
-
-## Usage
+# Usage
 
 ```html
 <script type="text/tiscript">
@@ -28,15 +37,7 @@ You can quickly see the live demos of the /samples from this repo by using [Omni
 </svg>
 ```
 
-## Adapting JS/SVG code from Vivus.js
-
-Sciter currently doesn't supports calculating `<path>`'s length, so you need to tell in your SVG markup the length of each `<path>` by adding a `length="123"` attribute.
-
-The good news is that I've made a .html 'script' page to automate this process, which you will find in `calc-length-script/calc.html`. It uses your to browser (tested in Chrome and Firefox) to calculate that length and gives you the output SVG markup.
-
-Note that I found that sometimes the returned length is greater than the actual length. So the browser is returning the wrong measurement, or in Sciter, when you scale your SVG, the length gets incorrect. Anyway, you may have to manually tweak the value.
-
-### Constructor
+## Constructor
 
 The Vivus constructor asks for 3 parameters:
 
@@ -45,7 +46,7 @@ The Vivus constructor asks for 3 parameters:
 - Option object (described in the following table) (optional)
 - Callback to call at the end of the animation (optional)
 
-### Option list
+## Option list
 
 Options are the same as in vivus.js, however I removed some of them because they are really not necessary in Sciter.
 
@@ -62,7 +63,7 @@ Options are the same as in vivus.js, however I removed some of them because they
 |<s>`onReady`</s>   | N/A | N/A |
 |<s>`forceRender`</s> | N/A | N/A |
 
-### Methods
+## Methods
 
 Methods table is 99% equal to vivus.js one. Unlike JS, in TIScript integers and floats are distinct types, so you must respect the parameter type in each method.
 
@@ -73,20 +74,29 @@ Methods table is 99% equal to vivus.js one. Unlike JS, in TIScript integers and 
 | `reset()`     | Reinitialises the SVG to the original state: undrawn. |
 | `finish()`    | Set the SVG to the final state: drawn. |
 | `setFrameProgress(progress:Float)` | Set the progress of the animation. Progress must be a Float number between 0 and 1. |
+| `getFrameProgress()` | Get the progress of the animation. |
 | `getStatus() : Symbol` | Get the status of the animation between `#start`, `#progress`, `#end` |
 | `destroy()`   | Reset the SVG but make the instance out of order. |
 
 These methods return the Vivus instance so you can chain the actions.
 
 ```js
-var myVivus = new Vivus('#my-svg-id');
+var myVivus = new Vivus("#my-svg-id");
 myVivus
   .stop()
   .reset()
-  .play(2)
+  .play(2.0)
 ```
 
-## TODO
+# Adapting JS/SVG code from Vivus.js
+
+Sciter currently doesn't supports calculating `<path>`'s length, so you need to tell in your SVG markup the length of each `<path>` by adding a `length="123"` attribute.
+
+The good news is that I've made a .html 'script' page to automate this process, which you will find in `calc-length-script/calc.html`. It uses your to browser (tested in Chrome and Firefox) to calculate that length and gives you the output SVG markup.
+
+Note that I found that sometimes the returned length is greater than the actual length. So the browser is returning the wrong measurement, or in Sciter, when you scale your SVG, the length gets incorrect. Anyway, you may have to manually tweak the value.
+
+# TODO
 
 http://surbhioberoi.com/a-complete-guide-to-svg/
 http://gionkunz.github.io/chartist-js/
