@@ -29,7 +29,7 @@
 		{
 			var polaroidD = new Vivus(self#polaroid-dynamic, {
 				type: "scenario-sync",
-				duration: 20
+				duration: 25
 			}, function() {
 				polaroidD.play(polaroidD.getStatus() == #end ? -1.0 : 1.0);
 			});

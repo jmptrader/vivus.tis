@@ -9,19 +9,15 @@ This way, just search for any Vivus.js sample and you will be amazed with what y
 # Samples
 You can quickly see the live demos of the /samples folder by using [OmniFiddler](http://misoftware.rs/Home/Post/OmniFiddler):
 
-- <a href="omnifiddler://r3NUZ">omnifiddler://r3NUZ</a>
-- <a href="omnifiddler://Y1tvO">omnifiddler://Y1tvO</a>
-- <a href="omnifiddler://V1TPF">omnifiddler://V1TPF</a>
-- <a href="omnifiddler://mmT1Y">omnifiddler://mmT1Y</a>
-- <a href="omnifiddler://98H4v">omnifiddler://98H4v</a>
+- <a href="omnifiddler://r3NUZ">omnifiddler://r3NUZ</a> or r3NUZ
+- <a href="omnifiddler://Y1tvO">omnifiddler://Y1tvO</a> or Y1tvO
+- <a href="omnifiddler://V1TPF">omnifiddler://V1TPF</a> or V1TPF
+- <a href="omnifiddler://mmT1Y">omnifiddler://mmT1Y</a> or mmT1Y
+- <a href="omnifiddler://98H4v">omnifiddler://98H4v</a> or 98H4v
 
-_(inside OmniFiddler there is an option to register the omnifiddler:// protocol in your system so you can open such links, else you need to copy/paste the link into OmniFiddler)_
+_(inside OmniFiddler there is an option to register the omnifiddler:// protocol in your system so you can open such links, else you need to copy/paste the link or ID into OmniFiddler)_
 
-![](https://github.com/MISoftware/vivus.tis/blob/master/samples/gifs/cheese.gif?raw=true)
-![](https://github.com/MISoftware/vivus.tis/blob/master/samples/gifs/lettering.gif?raw=true)
-![](https://github.com/MISoftware/vivus.tis/blob/master/samples/gifs/stamps.gif?raw=true)
-![](https://github.com/MISoftware/vivus.tis/blob/master/samples/gifs/index.gif?raw=true)
-
+Or see [SAMPLES.md](SAMPLES.md) for GIF images!
 
 # Usage
 
@@ -96,7 +92,7 @@ The good news is that I've made a .html 'script' page to automate this process, 
 
 Note that I found that sometimes the returned length is greater than the actual length. So the browser is returning the wrong measurement, or in Sciter, when you scale your SVG, the length gets incorrect. Anyway, you may have to manually tweak the value.
 
-# TODO
+# REFERENCE / TODO 
 
-http://surbhioberoi.com/a-complete-guide-to-svg/
-http://gionkunz.github.io/chartist-js/
+- http://surbhioberoi.com/a-complete-guide-to-svg/
+- http://gionkunz.github.io/chartist-js/

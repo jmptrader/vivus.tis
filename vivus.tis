@@ -206,8 +206,6 @@ class Vivus
 			case "inViewport":
 				{
 					var listener = function() {
-						//console.trace(vivus.el);
-
 						if(vivus.el.seenIn(vivus.el_scrollable))
 						{
 							view.off(listener);
@@ -357,18 +355,21 @@ if(!Math.round)
 	}
 }
 
-function Element.seenIn(el_scrollable)
+if(!Element.seenIn)
 {
-	// http://sciter.com/forums/topic/isinviewport-function/
-	var (cx1,cy1,cx2,cy2) = this.box(#rect,#border,#view);
-	var (px1,py1,px2,py2) = el_scrollable.box(#rect,#inner,#view);
+	Element.seenIn = function(el_scrollable)
+	{
+		// http://sciter.com/forums/topic/isinviewport-function/
+		var (cx1,cy1,cx2,cy2) = this.box(#rect,#border,#view);
+		var (px1,py1,px2,py2) = el_scrollable.box(#rect,#inner,#view);
 
-	//log("A", this, cx1,cy1,cx2,cy2);
-	//log("B", self, px1,py1,px2,py2);
+		//log("A", this, cx1,cy1,cx2,cy2);
+		//log("B", self, px1,py1,px2,py2);
 
-	if( cy1 >= py2 ) return false; // below viewport
-	if( cy2 <= py1 ) return false; // above viewport
-	return true; // seen inside
+		if( cy1 >= py2 ) return false; // below viewport
+		if( cy2 <= py1 ) return false; // above viewport
+		return true; // seen inside
+	}
 }
 
 if(!Element.tagname)
