@@ -7,6 +7,9 @@ Goal is to have this API exactly the same as vivus.js, so you can grab any exist
 This way, just search for any Vivus.js sample and you will be amazed with what you can achieve with SVG stroke animations: [Codepen](http://codepen.io/search/pens?q=vivus&limit=all&type=type-pens)
 
 # Samples
+
+See [SAMPLES.md](SAMPLES.md) for GIF images.
+
 You can quickly see the live demos of the /samples folder by using [OmniFiddler](http://misoftware.rs/Home/Post/OmniFiddler):
 
 - <a href="omnifiddler://r3NUZ">omnifiddler://r3NUZ</a> or r3NUZ
@@ -16,8 +19,6 @@ You can quickly see the live demos of the /samples folder by using [OmniFiddler]
 - <a href="omnifiddler://98H4v">omnifiddler://98H4v</a> or 98H4v
 
 _(inside OmniFiddler there is an option to register the omnifiddler:// protocol in your system so you can open such links, else you need to copy/paste the link or ID into OmniFiddler)_
-
-Or see [SAMPLES.md](SAMPLES.md) for GIF images!
 
 # Usage
 
@@ -88,11 +89,13 @@ myVivus
 
 Sciter currently doesn't supports calculating `<path>`'s length, so you need to tell in your SVG markup the length of each `<path>` by adding a `length="123"` attribute.
 
-The good news is that I've made a .html 'script' page to automate this process, which you will find in `calc-length-script/calc.html`. It uses your to browser (tested in Chrome and Firefox) to calculate that length and gives you the output SVG markup.
+The good news is that I've made a .html 'script' page to automate this process, which you will find in `calc-length-script/calc.html`. It uses a standard browser (tested in Chrome and Firefox) to calculate the length of each path and gives you the output SVG markup.
 
-Note that I found that sometimes the returned length is greater than the actual length. So the browser is returning the wrong measurement, or in Sciter, when you scale your SVG, the length gets incorrect. Anyway, you may have to manually tweak the value.
+A problem with this method: while testing, I noticed that sometimes the returned length is greater than the actual length. So the browser is returning the wrong measurement, or in Sciter, when you scale your SVG, the length gets incorrect. Anyway, you may have to manually tweak the value.
 
 # REFERENCE / TODO 
 
 - http://surbhioberoi.com/a-complete-guide-to-svg/
 - http://gionkunz.github.io/chartist-js/
+- https://github.com/maxwellito/triangulr
+- https://github.com/lmgonzalves/segment
